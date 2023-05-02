@@ -19,18 +19,17 @@ const getFilesFrom = (path) => {
 const getFileStats = (files) => {
   const fullfilledCallback = (result) => result.join('\n');
   const getStat = (file) => {
-    return new Promise((resolve) => {
+    const callback = (resolve) => {
       const filePath = path.join(secretfolderPath, file.name);
-      const callback = (error, stats) => {
+      const statCallback = (error, stats) => {
         if (error) throw error;
-        const parsedFilename = path.parse(file.name);
-        const name = parsedFilename.name;
-        const ext = parsedFilename.ext;
+        const { name, ext } = path.parse(file.name);
         const kbSize = (stats.size / 1024).toFixed(3);
         resolve(`${name} - ${ext} - ${kbSize}KB`);
       }
-      fs.stat(filePath, callback);
-    });
+      fs.stat(filePath, statCallback);
+    }
+    return new Promise(callback);
   }
   return Promise.all(files.map(getStat)).then(fullfilledCallback);
 };
