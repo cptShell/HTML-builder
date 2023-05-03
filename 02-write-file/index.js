@@ -14,13 +14,13 @@ const appendText = (data) => {
   const callback = (error) => {
     if (error) throw error;
     setQuestion(false);
-  }
+  };
   fs.appendFile(textPath, data, callback);
 };
 const openHandler = (error) => {
   if (error) throw error;
   setQuestion(true);
-}
+};
 const closeHandler = () => console.log('____thank you for typing!____');
 
 fs.open(textPath, 'w', openHandler);

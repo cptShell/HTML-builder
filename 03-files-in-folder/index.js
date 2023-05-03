@@ -11,9 +11,9 @@ const getFilesFrom = (path) => {
         return file.isDirectory() ? res : res.concat(file);
       }, []);
       resolve(result);
-    }
+    };
     fs.readdir(path, readdirOptions, encodingCallback);
-  }
+  };
   return new Promise(callback);
 };
 const getFileStats = (files) => {
@@ -26,11 +26,11 @@ const getFileStats = (files) => {
         const { name, ext } = path.parse(file.name);
         const kbSize = (stats.size / 1024).toFixed(3);
         resolve(`${name} - ${ext} - ${kbSize}KB`);
-      }
+      };
       fs.stat(filePath, statCallback);
-    }
+    };
     return new Promise(callback);
-  }
+  };
   return Promise.all(files.map(getStat)).then(fullfilledCallback);
 };
 
